@@ -4,8 +4,8 @@ class App {
   public app: express.Express;
   // ...
 
-  constructor() {
-    // ...
+  constructor() { 
+    this.app = express();
     this.config();
     // ...
   }
@@ -19,12 +19,13 @@ class App {
     };
 
     this.app.use(accessControl);
-    // ...
   }
 
   // ...
   public start(PORT: string | number):void {
-    // ...
+    this.app.listen(PORT, () => {
+      console.log(`Running on ${ PORT }`);
+    });
   }
 }
 
