@@ -8,19 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      homeTeam: {
+      home_team: {
         type: Sequelize.INTEGER
       },
-      homeTeamGoals: {
+      home_team_goals: {
         type: Sequelize.INTEGER
       },
-      awayTeamGoals: {
+      away_team_goals: {
         type: Sequelize.INTEGER
       },
-      awayTeam: {
+      away_team: {
         type: Sequelize.INTEGER
       },
-      inProgress: {
+      in_progress: {
         type: Sequelize.INTEGER
       }
     });
