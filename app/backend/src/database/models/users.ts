@@ -1,4 +1,4 @@
-import { Model } from 'sequelize';
+import { Model, STRING } from 'sequelize';
 import db from '.';
 
 class users extends Model {
@@ -10,19 +10,19 @@ class users extends Model {
 
 users.init({
   username: {
-    type: DataTypes.STRING,
+    type: STRING,
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING,
+    type: STRING,
     allowNull: false,
   },
   role: {
-    type: DataTypes.STRING,
+    type: STRING,
     allowNull: false,
   },
   password: {
-    type: DataTypes.STRING,
+    type: STRING,
     allowNull: false,
   },
 }, {
