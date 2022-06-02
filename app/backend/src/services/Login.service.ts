@@ -7,14 +7,14 @@ type LoginData = {
 };
 
 export interface ILoginService {
-  usersModel: users;
+  usersModel: typeof users;
   login(data: LoginData): Promise<IUser | null>
 }
 
 export default class LoginService implements ILoginService {
-  public usersModel: users;
+  public usersModel: typeof users;
 
-  constructor(usersModel: users) {
+  constructor(usersModel: typeof users) {
     this.usersModel = usersModel;
   }
 
