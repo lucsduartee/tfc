@@ -12,16 +12,16 @@ export interface ILoginService {
 }
 
 export default class LoginService implements ILoginService {
-  usersModel: users;
+  public usersModel: users;
 
   constructor(usersModel: users) {
     this.usersModel = usersModel;
   }
 
-  static async login(data: LoginData): Promise<IUser | null> {
+  async login(data: LoginData): Promise<IUser | null> {
     const { email, password } = data;
 
-    const result = await users.findOne({
+    const result = await this.usersModel.findOne({
       where: {
         email,
         password,
