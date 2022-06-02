@@ -1,7 +1,8 @@
-import { Model, STRING } from 'sequelize';
+import { Model, STRING, INTEGER } from 'sequelize';
 import db from '.';
 
 class users extends Model {
+  public id!: number;
   public username!: string;
   public email!: string;
   public password!: string;
@@ -9,6 +10,12 @@ class users extends Model {
 }
 
 users.init({
+  id: {
+    primaryKey: true,
+    autoIncrement: true,
+    allowNull: false,
+    type: INTEGER,
+  },
   username: {
     type: STRING,
     allowNull: false,
