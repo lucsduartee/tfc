@@ -4,20 +4,20 @@
     "username": "Albert Einstein",
     "email": "bertinho.eins@example.com",
     "role": "admin",
-    "password": "relatividadeGeral"
+    "password": "$2a$12$r1ry/ELZZgyXSQvtHWo44uogddGZYdsuaGHXGZOVkjnJtQGdAEUgm"
   },
   {
     "id": 2,
     "username": "Max Planck",
     "email": "maxplanckton@example.com",
     "role": "admin",
-    "password": "mecQuantica123"
+    "password": "$2a$12$s5LCxjcrfdrTJyRoVpPSzumgB001sVct.VfbjpfoAX0qF0YU9oZyC"
   },
   {
     "id": 3,
     "username": "Bernhard Riemann",
     "email": "riemann@example.com",
     "role": "user",
-    "password": "somaDeEuMesmo"
+    "password": "$2a$12$2uI.tB8R6CPh4vbtihJtUuQ.pRcvlOSvHaxVXLAQIyO1asx9BO8Jy" 
   }
 ]
