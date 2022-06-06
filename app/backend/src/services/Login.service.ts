@@ -19,12 +19,10 @@ export default class LoginService implements ILoginService {
   }
 
   async login(data: LoginData): Promise<IUser | null> {
-    const { email, password } = data;
-
+    const { email } = data;
     const result = await this.usersModel.findOne({
       where: {
         email,
-        password,
       },
     });
 
