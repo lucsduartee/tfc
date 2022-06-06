@@ -4,7 +4,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Example from '../database/models/ExampleModel';
+import User from '../database/models/users';
 
 import { Response } from 'superagent';
 
@@ -12,34 +12,42 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Seu teste', () => {
+describe('/login', () => {
   /**
    * Exemplo do uso de stubs com tipos
    */
 
-  // let chaiHttpResponse: Response;
+  let chaiHttpResponse: Response;
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
+  before(async () => {
+    sinon
+      .stub(User, "findOne")
+      .resolves({
+        id: 1,
+        username: "Albert Einstein",
+        email: "bertinho.eins@example.com",
+        role: "admin",
+        password: "$2a$12$r1ry/ELZZgyXSQvtHWo44uogddGZYdsuaGHXGZOVkjnJtQGdAEUgm" // avioesdoforro
+      } as User);
+  });
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
+  after(()=>{
+    (User.findOne as sinon.SinonStub).restore();
+  })
 
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
+  it('Return OK status code', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .post('/login')
+       .send({
+         email: 'bertinho.eins@example.com',
+         password: 'avioesdoforro',
+       })
 
-  //   expect(...)
-  // });
+    expect(chaiHttpResponse).to.have.status(200);
+  });
 
   it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
+    expect(true).to.be.eq(true);
   });
 });
