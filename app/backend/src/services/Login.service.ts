@@ -1,14 +1,16 @@
+import * as Bcryptjs from 'bcryptjs';
 import IUser from '../interfaces/IUser';
 import users from '../database/models/users';
+import ICustomError from '../interfaces/ICustomError';
 
 type LoginData = {
   email: string,
-  password: string,
+  passwordRaw: string,
 };
 
 export interface ILoginService {
   usersModel: typeof users;
-  login(data: LoginData): Promise<IUser | null>
+  login(data: LoginData): Promise<IUser | ICustomError | null>
 }
 
 export default class LoginService implements ILoginService {
@@ -18,14 +20,25 @@ export default class LoginService implements ILoginService {
     this.usersModel = usersModel;
   }
 
-  async login(data: LoginData): Promise<IUser | null> {
-    const { email } = data;
+  async login(data: LoginData): Promise<IUser | ICustomError | null> {
+    const { email, passwordRaw } = data;
     const result = await this.usersModel.findOne({
       where: {
         email,
       },
     });
 
-    return result;
+    const { password, id, username, role } = result as users;
+    const isValidPassword = await Bcryptjs.compare(passwordRaw, password);
+    if (!isValidPassword) {
+      return { code: 402, message: 'invalid passwd' } as ICustomError;
+    }
+
+    return {
+      id,
+      username,
+      role,
+      email,
+    };
   }
 }
