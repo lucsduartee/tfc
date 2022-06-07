@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
+import ICustomError from '../interfaces/ICustomError';
+import Token from '../utils/Token';
 import LoginService from '../services/Login.service';
 
 export interface ILoginController {
@@ -15,10 +17,15 @@ export default class LoginController {
 
   async handleLogin(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, password } = req.body;
-      const result = await this.loginService.login({ email, password });
+      const { email, password: passwordRaw } = req.body;
+      const result = await this.loginService.login({ email, passwordRaw });
 
-      return res.status(200).json({ message: 'Login feito', result });
+      if (!(result as ICustomError).code) {
+        return next(result);
+      }
+
+      const token = await Token.generate({ email, passwordRaw });
+      return res.status(200).json({ user: result, token });
     } catch (err) {
       return next(err);
     }
