@@ -4,13 +4,13 @@ import users from '../database/models/users';
 import ICustomError from '../interfaces/ICustomError';
 
 type LoginData = {
-  email: string,
-  passwordRaw: string,
+  email: string;
+  passwordRaw: string;
 };
 
 export interface ILoginService {
   usersModel: typeof users;
-  login(data: LoginData): Promise<IUser | ICustomError | null>
+  login(data: LoginData): Promise<IUser | ICustomError | null>;
 }
 
 export default class LoginService implements ILoginService {
@@ -28,17 +28,18 @@ export default class LoginService implements ILoginService {
       },
     });
 
+    console.log(result);
+
+    if (!result) {
+      return { code: 404, message: 'User not found' };
+    }
+
     const { password, id, username, role } = result as users;
     const isValidPassword = await Bcryptjs.compare(passwordRaw, password);
     if (!isValidPassword) {
       return { code: 402, message: 'invalid passwd' } as ICustomError;
     }
 
-    return {
-      id,
-      username,
-      role,
-      email,
-    };
+    return { id, username, role, email };
   }
 }
