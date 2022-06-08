@@ -28,8 +28,6 @@ export default class LoginService implements ILoginService {
       },
     });
 
-    console.log(result);
-
     if (!result) {
       return { code: 404, message: 'User not found' };
     }
@@ -40,6 +38,8 @@ export default class LoginService implements ILoginService {
       return { code: 402, message: 'invalid passwd' } as ICustomError;
     }
 
-    return { id, username, role, email };
+    const user = { id, username, role, email };
+
+    return user;
   }
 }

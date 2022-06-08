@@ -20,8 +20,7 @@ export default class LoginController {
       const { email, password: passwordRaw } = req.body;
       const result = await this.loginService.login({ email, passwordRaw });
 
-      console.log('tono controle ', result);
-      if (!(result as ICustomError).code) {
+      if ((result as ICustomError).code) {
         return next(result);
       }
 
