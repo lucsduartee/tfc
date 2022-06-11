@@ -1,4 +1,5 @@
 import * as express from 'express';
+import ErrorMiddleware from './middlewares/Error.middleware';
 import loginRouter from './routes/Login.route';
 
 class App {
@@ -22,6 +23,7 @@ class App {
     this.app.use(accessControl);
     this.app.use(express.json());
     this.app.use('/login', loginRouter);
+    this.app.use(ErrorMiddleware.validate);
   }
 
   // ...

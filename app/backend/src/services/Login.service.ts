@@ -10,7 +10,7 @@ type LoginData = {
 
 export interface ILoginService {
   usersModel: typeof users;
-  login(data: LoginData): Promise<IUser | ICustomError | null>;
+  login(data: LoginData): Promise<IUser | ICustomError | undefined>;
 }
 
 export default class LoginService implements ILoginService {
@@ -20,8 +20,8 @@ export default class LoginService implements ILoginService {
     this.usersModel = usersModel;
   }
 
-  async login(data: LoginData): Promise<IUser | ICustomError | null> {
-    const { email, passwordRaw } = data;
+  async login(data: LoginData): Promise<IUser | ICustomError | undefined> {
+    const { email } = data;
     const result = await this.usersModel.findOne({
       where: {
         email,
@@ -29,17 +29,16 @@ export default class LoginService implements ILoginService {
     });
 
     if (!result) {
-      return { code: 404, message: 'User not found' };
+      return { code: 401, message: 'Incorrect email or password' } as ICustomError;
     }
 
-    const { password, id, username, role } = result as users;
-    const isValidPassword = await Bcryptjs.compare(passwordRaw, password);
-    if (!isValidPassword) {
-      return { code: 402, message: 'invalid passwd' } as ICustomError;
-    }
-
+    const { id, username, role } = result as users;
     const user = { id, username, role, email };
-
     return user;
+  }
+
+  static async validatePassword(passwordRaw: string, password: string): Promise<boolean> {
+    const isValidPassword = await Bcryptjs.compare(passwordRaw, password);
+    return isValidPassword;
   }
 }
