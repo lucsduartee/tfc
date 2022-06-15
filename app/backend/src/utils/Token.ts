@@ -21,4 +21,10 @@ export default class Token {
 
     return token;
   }
+
+  static async validate(token: string): Promise<jwt.JwtPayload> {
+    const masterKey = await Token.getKey();
+    const decoded = jwt.verify(token, masterKey);
+    return decoded as jwt.JwtPayload;
+  }
 }
