@@ -13,4 +13,8 @@ loginRouter.post('/', validation(LoginSchema), async (req, res, next) => {
   await loginController.handleLogin(req, res, next);
 });
 
+loginRouter.get('/validate', async (req, res, next) => {
+  await loginController.validate(req, res, next);
+});
+
 export default loginRouter;
