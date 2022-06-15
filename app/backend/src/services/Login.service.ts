@@ -21,7 +21,7 @@ export default class LoginService implements ILoginService {
   }
 
   async login(data: LoginData): Promise<IUser | ICustomError | undefined> {
-    const { email } = data;
+    const { email, passwordRaw } = data;
     const result = await this.usersModel.findOne({
       where: {
         email,
@@ -32,7 +32,13 @@ export default class LoginService implements ILoginService {
       return { code: 401, message: 'Incorrect email or password' } as ICustomError;
     }
 
-    const { id, username, role } = result as users;
+    const { id, username, role, password } = result as users;
+    const isValid = await LoginService.validatePassword(passwordRaw, password);
+
+    if (!isValid) {
+      return { code: 401, message: 'Incorrect email or password' } as ICustomError;
+    }
+
     const user = { id, username, role, email };
     return user;
   }
