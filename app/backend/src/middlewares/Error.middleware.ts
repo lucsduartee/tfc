@@ -9,7 +9,6 @@ export default class ErrorMiddleware {
     res: Response,
     _next: NextFunction,
   ) {
-    console.log('no mid de error', err);
     if ((err as ICustomError).code) {
       return res.status((err as ICustomError).code)
         .json({ message: (err as ICustomError).message });

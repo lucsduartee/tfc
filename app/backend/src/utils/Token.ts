@@ -14,7 +14,8 @@ export default class Token {
 
   static async generate(data: LoginData): Promise<string> {
     const masterKey = await Token.getKey();
-    const token = jwt.sign(data, masterKey, {
+    const { email, passwordRaw: password } = data;
+    const token = jwt.sign({ email, password }, masterKey, {
       expiresIn: '1d',
       algorithm: 'HS256',
     });
