@@ -5,6 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import User from '../database/models/users';
+import Teams from '../database/models/teams';
 
 import { Response } from 'superagent';
 
@@ -43,6 +44,36 @@ describe('/login', () => {
          email: 'bertinho.eins@example.com',
          password: 'avioesdoforro',
        })
+
+    expect(chaiHttpResponse).to.have.status(200);
+  });
+
+  it('Seu sub-teste', () => {
+    expect(true).to.be.eq(true);
+  });
+});
+
+describe('/teams', () => {
+  /**
+   * Exemplo do uso de stubs com tipos
+   */
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Teams, "findAll")
+      .resolves();
+  });
+
+  after(()=>{
+    (Teams.findAll as sinon.SinonStub).restore();
+  })
+
+  it('Return OK status code', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/login')
 
     expect(chaiHttpResponse).to.have.status(200);
   });
