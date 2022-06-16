@@ -12,4 +12,8 @@ teamRouter.get('/', async (req, res, next) => {
   await teamsController.getAll(req, res, next);
 });
 
+teamRouter.get('/:id', async (req, res, next) => {
+  await teamsController.getById(req, res, next);
+});
+
 export default teamRouter;
