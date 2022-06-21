@@ -22,7 +22,7 @@ export default class MatchesService {
   }
 
   async saveMatch(matchData: IMatchData) {
-    const { awayTeam, awayTeamGoals, homeTeam, homeTeamGoals, inProgress } = matchData;
+    const { awayTeam, awayTeamGoals, homeTeam, homeTeamGoals, inProgress = true } = matchData;
     const result = this.matchesModel
       .create({ awayTeam, awayTeamGoals, homeTeam, homeTeamGoals, inProgress });
 

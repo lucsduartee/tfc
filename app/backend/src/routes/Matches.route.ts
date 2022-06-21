@@ -11,4 +11,8 @@ matchesRouter.get('/', async (req, res, next) => {
   await matchesController.getAll(req, res, next);
 });
 
+matchesRouter.post('/', async (req, res, next) => {
+  await matchesController.saveMatch(req, res, next);
+});
+
 export default matchesRouter;

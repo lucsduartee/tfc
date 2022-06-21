@@ -16,4 +16,13 @@ export default class MatchesController {
       return next(err);
     }
   }
+
+  async saveMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const matchCreated = await this.matchesService.saveMatch(req.body);
+      return res.status(201).json(matchCreated);
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
