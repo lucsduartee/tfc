@@ -1,6 +1,7 @@
 import teams from '../database/models/teams';
 import matches from '../database/models/matches';
 import IMatches from '../interfaces/IMatches';
+import IMatchData from '../interfaces/IMatchData';
 
 export default class MatchesService {
   public matchesModel: typeof matches;
@@ -16,6 +17,14 @@ export default class MatchesService {
         { model: teams, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
+
+    return result;
+  }
+
+  async saveMatch(matchData: IMatchData) {
+    const { awayTeam, awayTeamGoals, homeTeam, homeTeamGoals, inProgress } = matchData;
+    const result = this.matchesModel
+      .create({ awayTeam, awayTeamGoals, homeTeam, homeTeamGoals, inProgress });
 
     return result;
   }

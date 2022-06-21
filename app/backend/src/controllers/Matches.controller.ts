@@ -11,7 +11,6 @@ export default class MatchesController {
   async getAll(_req: Request, res: Response, next: NextFunction) {
     try {
       const matches = await this.matchesService.getAll();
-      console.log(matches);
       return res.status(200).json(matches);
     } catch (err) {
       return next(err);
