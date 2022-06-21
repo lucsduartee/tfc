@@ -33,14 +33,14 @@ matches.init({
   timestamps: false,
 });
 
-matches.hasMany(teams, {
-  sourceKey: 'id',
+matches.belongsTo(teams, {
   foreignKey: 'homeTeam',
+  as: 'teamHome',
 });
 
-matches.hasMany(teams, {
-  sourceKey: 'id',
+matches.belongsTo(teams, {
   foreignKey: 'awayTeam',
+  as: 'teamAway',
 });
 
 export default matches;
