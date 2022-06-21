@@ -9,7 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       home_team: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'teams',
+          key: 'id',
+        }
       },
       home_team_goals: {
         type: Sequelize.INTEGER
@@ -18,7 +22,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       away_team: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'teams',
+          key: 'id',
+        },
       },
       in_progress: {
         type: Sequelize.INTEGER
