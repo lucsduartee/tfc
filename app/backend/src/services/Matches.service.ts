@@ -28,4 +28,11 @@ export default class MatchesService {
 
     return result;
   }
+
+  async updateMatch(id: number) {
+    const result = await this.matchesModel
+      .update({ inProgress: false }, { where: { id } });
+
+    return result;
+  }
 }
