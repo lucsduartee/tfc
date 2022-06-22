@@ -35,4 +35,11 @@ export default class MatchesService {
 
     return result;
   }
+
+  async updateEntireMatch(matchData: IMatchData, id: number) {
+    const result = await this.matchesModel
+      .update(matchData, { where: { id } });
+
+    return result;
+  }
 }

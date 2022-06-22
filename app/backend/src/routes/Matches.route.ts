@@ -31,4 +31,12 @@ matchesRouter
     },
   );
 
+matchesRouter
+  .patch(
+    '/:id',
+    async (req, res, next) => {
+      await matchesController.updateEntireMatch(req, res, next);
+    },
+  );
+
 export default matchesRouter;

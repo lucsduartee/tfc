@@ -35,4 +35,14 @@ export default class MatchesController {
       return next(err);
     }
   }
+
+  async updateEntireMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const result = await this.matchesService.updateEntireMatch(req.body, Number(id));
+      return res.status(200).json(result);
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
